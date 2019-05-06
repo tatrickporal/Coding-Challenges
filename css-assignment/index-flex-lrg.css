@@ -1,0 +1,12 @@
+/* Desktop Specific Specifications */
+.img-card{
+    background-color:white;
+    height:275px;
+    width:275px;
+    border:solid black 1px;
+    margin:10px;
+}
+
+.img-social{
+    font-size:1em;
+}
