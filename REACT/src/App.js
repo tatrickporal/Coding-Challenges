@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import AppCarsContainer from './components/AppCarsContainer';
 import WorkingWithData from './components/WorkingWithData';
+import SearchItems from './components/SearchItems';
 import axios from 'axios';
 
 class App extends Component {
@@ -19,6 +20,9 @@ class App extends Component {
       .then(res => this.setState({cars:res.data, filteredCars:res.data}))
   }
 
+  searchCallback(filteredItems){
+    this.setState({filteredCars:filteredItems})
+  }
   _updateSearch(event) {
     this.setState({search:event.target.value})
     let filter = this.state.filter;
@@ -29,14 +33,14 @@ class App extends Component {
             if(car[filter].toLowerCase().indexOf(search) !== -1){
             carList.push(car);
             }
-        }
+          }
         );
         this.setState({filteredCars: carList});
     } else {
         this.setState({filteredCars: this.state.cars});
     }
   }
-  
+
   _updateFilter(event) {
     this.setState({filter:event.target.value})
   }
@@ -50,13 +54,7 @@ class App extends Component {
           <WorkingWithData cars={this.state.cars} />
           {this.state.cars.length > 0 && 
                 <div>Filter By:
-                <select onChange={this._updateFilter.bind(this)} value={this.state.filter}>
-                    <option value="default" >View All Cars</option>
-                    {Object.keys(this.state.cars[0]).map(key =>
-                        <option key={key} value={key}>{key}</option>
-                    )}
-                </select>
-                <input value={this.state.search} onChange={this._updateSearch.bind(this)}></input>
+                <SearchItems cars={this.state.cars} searchCallback={this.searchCallback.bind(this)}/>
             </div>
           }
           <AppCarsContainer key="CarContainer" cars={this.state.filteredCars} />
