@@ -23,27 +23,6 @@ class App extends Component {
   searchCallback(filteredItems){
     this.setState({filteredCars:filteredItems})
   }
-  _updateSearch(event) {
-    this.setState({search:event.target.value})
-    let filter = this.state.filter;
-    let search = event.target.value.toLowerCase();
-    let carList = [];
-    if(filter !== 'default'){
-        this.state.cars.forEach(function(car){
-            if(car[filter].toLowerCase().indexOf(search) !== -1){
-            carList.push(car);
-            }
-          }
-        );
-        this.setState({filteredCars: carList});
-    } else {
-        this.setState({filteredCars: this.state.cars});
-    }
-  }
-
-  _updateFilter(event) {
-    this.setState({filter:event.target.value})
-  }
 
   render() {
     return (
